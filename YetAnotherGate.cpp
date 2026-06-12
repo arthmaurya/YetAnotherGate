@@ -15,7 +15,7 @@
 */
 
 #define LEAN_AND_MEAN
-#define DEBUG 1
+#define DEBUG 0
 #define DEBUG_FILE 0
 #define DEBUG_VECTOR 0
 
@@ -762,7 +762,7 @@ void* AddStubToPool(Sys_stb* sEntry, size_t NumberOfElements)
                     //norm("SSN:",CYAN" 0x", std::hex, sEntry[j].SSN, "\n"); 
                 }
 
-                if(!sEntry[j].pCleanSyscall && i + 1 < 32 && (pBytes[i] == 0x0F || pBytes[i+1] == 0x05))
+                if(!sEntry[j].pCleanSyscall && i + 1 < 32 && (pBytes[i] == 0x0F && pBytes[i+1] == 0x05))
                 {
                     sEntry[j].pCleanSyscall = pBytes + i;
                     //norm("Address of the Syscall: ", CYAN"0x", std::hex, reinterpret_cast<void*>(sEntry[j].pCleanSyscall), "\n");
@@ -806,7 +806,7 @@ void* AddStubToPool(Sys_stb* sEntry, size_t NumberOfElements)
 
     // Ensure memory is executable
     DWORD oldProtect;
-    if(!fn.MyVirtualProtect(pSyscallPool, stubOffset, 0x20, &oldProtect))
+    if(!fn.MyVirtualProtect(pSyscallPool, stubOffset, PAGE_EXECUTE_READ, &oldProtect))
     {
         fuk("Failed to set RX permissions for syscall stubs. -> ", fn.MyGetLastError());
         return (void*)(~0ull);
