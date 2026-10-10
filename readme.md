@@ -22,6 +22,9 @@ Here I am taking the SSN numbers and Address of the syscall command for every fu
 It will then generate a syscall stub pool in memory, and every syscall stub will look different due to their dynamically obsfuscated nature (~2000 different possible stubs)
 >~~Goodluck writing static rules for that script kiddies~~
 
+**Technical Documentation:** [Polymorphic Syscall Engine](https://arthmaurya.com/malware/development/Polymorphic-Syscall-Engine)
+
+
 ## Usage
 Implimenting it in your code is also very easy, all you have to do is add these to your code ->
 
